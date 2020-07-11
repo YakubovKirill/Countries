@@ -1,10 +1,12 @@
 from django.db import models
 
-# Create your models here.
+# Country database model
 
 class Country(models.Model):
-    country_name = models.CharField
+    country_name = models.CharField(max_length=100)
+
+# City database model
 
 class City(models.Model):
-    city_name = models.CharField
-    country = models.IntegerField
+    city_name = models.CharField(max_length=100)
+    country = models.IntegerField()
