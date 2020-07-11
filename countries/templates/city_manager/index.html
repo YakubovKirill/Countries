@@ -26,17 +26,33 @@
   <div id="add">
     <div class="left">
       <h3>Add country</h3>
-      <form method="post" action="create/" id="country-form">
+      <form method="post" action="create/">
         {% csrf_token %}
         <p>
           <label>Enter country name</label>
-          <input type="text" name="country" id="cntr">
+          <input type="text" name="country" required="true">
         </p>
         <input type="submit" value="Add">
       </form>
     </div>
     <div class="right">
+      {% if countries.count > 0 %}
       <h3>Add city</h3>
+      <form method="post" action="create-city/" id="country-form">
+        {% csrf_token %}
+        <p>
+          <label>Chose country</label>
+          <select name="country_select">
+            {% for country in countries %}
+            <option value="{{ country.id }}">{{ country.country_name }}</option>
+            {% endfor %}
+          </select>
+          <label>Enter country name</label>
+          <input type="text" name="city" required="true">
+        </p>
+        <input type="submit" value="Add">
+      </form>
+      {% endif %}
     </div>
 
   </div>
