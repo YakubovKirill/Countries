@@ -41,14 +41,18 @@
       <form method="post" action="create-city/" id="country-form">
         {% csrf_token %}
         <p>
-          <label>Chose country</label>
-          <select name="country_select">
-            {% for country in countries %}
-            <option value="{{ country.id }}">{{ country.country_name }}</option>
-            {% endfor %}
-          </select>
-          <label>Enter country name</label>
-          <input type="text" name="city" required="true">
+          <p>
+            <label>Chose country</label>
+            <select name="country_select">
+              {% for country in countries %}
+              <option value="{{ country.id }}">{{ country.country_name }}</option>
+              {% endfor %}
+            </select>
+          </p>
+          <p>
+            <label>Enter country name</label>
+            <input type="text" name="city" required="true">
+          </p>
         </p>
         <input type="submit" value="Add">
       </form>
@@ -57,17 +61,24 @@
 
   </div>
   
-
-  
   {% if countries.count > 0 %}
   <h3>Countries list</h3>
   <table>
-      <thead><th>Id</th><th>Country name</th><th></th></thead>
+      <thead><th>Id</th><th>Country name</th><th>Cities</th><th></th></thead>
       {% for country in countries %}
       <tr>
           <td>{{ country.id }}</td>
           <td>{{ country.country_name }}</td>
-          <td><a href="#">Изменить</a> | <a href="#">Удалить</a></td>
+          <td>
+          {% if cities.count > 0 %}
+            {% for city in cities %}
+              {% if city.country == country.id %}
+                <p>{{ city.city_name }}</p>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+          </td>
+          <td><a href="#">Изменить</a> | <a href="delete/{{country.id}}">Удалить</a></td>
       </tr>
       {% endfor %}
   </table>

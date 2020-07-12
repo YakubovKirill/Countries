@@ -6,7 +6,11 @@ from .models import *
 
 def index(request):
     countries = Country.objects.all()
-    return render(request, "city_manager/index.html", {"countries": countries})
+    cities = City.objects.all()
+    return render(request, "city_manager/index.html", {
+        "countries": countries,
+        "cities": cities
+    })
 
 # Add country to database
 def addCount(request):
@@ -23,4 +27,12 @@ def addCity(request):
         city.city_name = request.POST.get("city")
         city.country = request.POST.get("country_select")
         city.save()
+    return HttpResponseRedirect("/")
+
+# Delete country and cities
+def delete(request, id):
+    country = Country.objects.get(id=id)
+    cities = City.objects.get(country=id)
+    country.delete()
+    cities.delete()
     return HttpResponseRedirect("/")
