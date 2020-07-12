@@ -51,3 +51,10 @@ def deleteCity(request, id):
     del_city = City.objects.get(id=city_id)
     del_city.delete()
     return HttpResponseRedirect("/")
+
+def updateCountry(request, id):
+    if request.method == "POST":
+        count = Country.objects.get(id=id)
+        count.country_name = request.POST.get("country")
+        count.save()
+    return HttpResponseRedirect("/")
