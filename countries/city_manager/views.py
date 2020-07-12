@@ -37,6 +37,7 @@ def delete(request, id):
     cities.delete()
     return HttpResponseRedirect("/")
 
+# Load update page
 def update(request, id):
     country = Country.objects.get(id=id)
     cities = City.objects.all().filter(country=id)
@@ -45,6 +46,7 @@ def update(request, id):
         "cities": cities
     })
 
+# Delete selected city 
 def deleteCity(request, id):
     city = City()
     city_id = request.POST.get("city_select")
@@ -52,6 +54,7 @@ def deleteCity(request, id):
     del_city.delete()
     return HttpResponseRedirect("/")
 
+# Update country name
 def updateCountry(request, id):
     if request.method == "POST":
         count = Country.objects.get(id=id)
