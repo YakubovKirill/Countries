@@ -7,5 +7,8 @@ urlpatterns = [
     path('create/', views.addCount),
     path('delete/<int:id>/', views.delete),
     path('create-city/', views.addCity),
+    path('update/<int:id>/', views.update),
+    #path('update-country/<int:id>/', views.updateCountry),
+    path('update/<int:id>/delete-city/', views.deleteCity),
     path('', views.index)
 ]

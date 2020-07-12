@@ -36,3 +36,18 @@ def delete(request, id):
     country.delete()
     cities.delete()
     return HttpResponseRedirect("/")
+
+def update(request, id):
+    country = Country.objects.get(id=id)
+    cities = City.objects.all().filter(country=id)
+    return render(request, "city_manager/update.html", {
+        "country": country,
+        "cities": cities
+    })
+
+def deleteCity(request, id):
+    city = City()
+    city_id = request.POST.get("city_select")
+    del_city = City.objects.get(id=city_id)
+    del_city.delete()
+    return HttpResponseRedirect("/")
